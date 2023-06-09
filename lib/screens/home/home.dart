@@ -1,10 +1,11 @@
 import 'package:ecommerce_with_admin_panel/constants/routes.dart';
 import 'package:ecommerce_with_admin_panel/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:ecommerce_with_admin_panel/models/category_model/category_model.dart';
+import 'package:ecommerce_with_admin_panel/screens/category_view/category_view.dart';
 import 'package:ecommerce_with_admin_panel/screens/product_details/product_details.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// import '../../models/category_model/category_model.dart';
 import '../../models/product_model/product_model.dart';
 import '../../widgets/top_titles/top_titles.dart';
 
@@ -89,17 +90,27 @@ class _HomeState extends State<Home> {
                                 .map(
                                   (e) => Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Card(
-                                      color: Colors.white,
-                                      elevation: 3.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      child: SizedBox(
-                                        height: 80,
-                                        width: 80,
-                                        child: Image.network(e.image),
+                                    child: CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        Routes.instance.push(
+                                            widget: CategoryView(
+                                              categoryModel: e,
+                                            ),
+                                            context: context);
+                                      },
+                                      child: Card(
+                                        color: Colors.white,
+                                        elevation: 3.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        child: SizedBox(
+                                          height: 80,
+                                          width: 80,
+                                          child: Image.network(e.image),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -123,79 +134,83 @@ class _HomeState extends State<Home> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  categoriesList.isEmpty
+                  // categoriesList.isEmpty
+                  productModelList.isEmpty
                       ? const Center(
                           child: Text("Best Product is empty"),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: GridView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              primary: false,
-                              itemCount: productModelList.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisSpacing: 20,
-                                      crossAxisSpacing: 20,
-                                      // childAspectRatio: 0.7,
-                                      crossAxisCount: 2),
-                              itemBuilder: (ctx, index) {
-                                ProductModel singleProduct =
-                                    productModelList[index];
-                                return Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.red.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(8.0),
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            primary: false,
+                            itemCount: productModelList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 20,
+                                    crossAxisSpacing: 20,
+                                    // childAspectRatio: 0.7,
+                                    crossAxisCount: 2),
+                            itemBuilder: (ctx, index) {
+                              ProductModel singleProduct =
+                                  productModelList[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                // color: Theme.of(context).primaryColor.withOpacity(0.3),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 12.0,
                                     ),
-                                    // color: Theme.of(context).primaryColor.withOpacity(0.3),
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 12.0,
+                                    Image.network(
+                                      singleProduct.image,
+                                      height: 60,
+                                      width: 60,
+                                      scale: 5.0,
+                                    ),
+                                    const SizedBox(
+                                      height: 12.0,
+                                    ),
+                                    Text(
+                                      singleProduct.name,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text("Price : ${singleProduct.price}"),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 110,
+                                      child: OutlinedButton(
+                                        onPressed: () {
+                                          Routes.instance.push(
+                                              widget: ProductDetails(
+                                                  singleProduct: singleProduct),
+                                              context: context);
+                                        },
+                                        child: const Text(
+                                          "Buy",
                                         ),
-                                        Image.network(
-                                          singleProduct.image,
-                                          height: 60,
-                                          width: 60,
-                                          scale: 5.0,
-                                        ),
-                                        const SizedBox(
-                                          height: 12.0,
-                                        ),
-                                        Text(
-                                          singleProduct.name,
-                                          style: const TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text("Price : ${singleProduct.name}"),
-                                        const SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        SizedBox(
-                                          height: 30,
-                                          width: 110,
-                                          child: OutlinedButton(
-                                            onPressed: () {
-                                              Routes.instance.push(
-                                                  widget: ProductDetails(
-                                                      singleProduct:
-                                                          singleProduct),
-                                                  context: context);
-                                            },
-                                            child: const Text(
-                                              "Buy",
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ));
-                              }),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
-
+                  const SizedBox(
+                    height: 10.0,
+                  ),
                 ],
               ),
             ),

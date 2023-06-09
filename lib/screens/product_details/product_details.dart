@@ -1,4 +1,6 @@
+import 'package:ecommerce_with_admin_panel/constants/routes.dart';
 import 'package:ecommerce_with_admin_panel/models/product_model/product_model.dart';
+import 'package:ecommerce_with_admin_panel/screens/cart_screen/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Routes.instance
+                  .push(widget: const CartScreen(), context: context);
+            },
             icon: const Icon(Icons.shopping_cart),
           )
         ],
@@ -60,61 +65,61 @@ class _ProductDetailsState extends State<ProductDetails> {
             const SizedBox(
               height: 12.0,
             ),
-            if (qty == 0)
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
+            // if (qty == 0)
+            //   Row(
+            //     children: [
+            //       ElevatedButton(
+            //         onPressed: () {
+            //           setState(() {
+            //             qty++;
+            //           });
+            //         },
+            //         child: const Text("Add To Cart"),
+            //       ),
+            //     ],
+            //   ),
+            // if (qty != 0)
+            Row(
+              children: [
+                CupertinoButton(
+                  onPressed: () {
+                    if (qty >= 1) {
                       setState(() {
-                        qty++;
+                        qty--;
                       });
-                    },
-                    child: const Text("Add To Cart"),
+                    }
+                  },
+                  padding: EdgeInsets.zero,
+                  child: const CircleAvatar(
+                    child: Icon(Icons.remove),
                   ),
-                ],
-              ),
-            if (qty != 0)
-              Row(
-                children: [
-                  CupertinoButton(
-                    onPressed: () {
-                      if (qty >= 1) {
-                        setState(() {
-                          qty--;
-                        });
-                      }
-                    },
-                    padding: EdgeInsets.zero,
-                    child: const CircleAvatar(
-                      child: Icon(Icons.remove),
-                    ),
+                ),
+                const SizedBox(
+                  width: 12.0,
+                ),
+                Text(
+                  qty.toString(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(
-                    width: 12.0,
+                ),
+                const SizedBox(
+                  width: 12.0,
+                ),
+                CupertinoButton(
+                  onPressed: () {
+                    setState(() {
+                      qty++;
+                    });
+                  },
+                  padding: EdgeInsets.zero,
+                  child: const CircleAvatar(
+                    child: Icon(Icons.add),
                   ),
-                  Text(
-                    qty.toString(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
-                  CupertinoButton(
-                    onPressed: () {
-                      setState(() {
-                        qty++;
-                      });
-                    },
-                    padding: EdgeInsets.zero,
-                    child: const CircleAvatar(
-                      child: Icon(Icons.add),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +140,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ],
             ),
             const SizedBox(
-              height: 12.0,
+              height: 24.0,
             ),
           ],
         ),

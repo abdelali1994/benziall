@@ -1,6 +1,8 @@
+import 'package:ecommerce_with_admin_panel/provider/app_provider.dart';
 import 'package:ecommerce_with_admin_panel/screens/cart_screen/widgets/single_cart_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -13,6 +15,8 @@ class _CartScreenState extends State<CartScreen> {
   // int qty = 0;
   @override
   Widget build(BuildContext context) {
+                        AppProvider appProvider = Provider.of<AppProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -24,11 +28,11 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: ListView.builder(
+      body: appProvider.getCartProductList.isEmpty? const Center(child: Text("Cart is Empty "),): ListView.builder(
           padding: const EdgeInsets.all(12.0),
-          itemCount: 4,
+          itemCount: appProvider.getCartProductList.length,
           itemBuilder: (ctx, index) {
-            return const SingleCartItem();
+            return  SingleCartItem(singleProduct: appProvider.getCartProductList[index],);
             // Container(
             //   margin: const EdgeInsets.only(bottom: 12.0),
             //   decoration: BoxDecoration(

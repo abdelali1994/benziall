@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
                       : Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: GridView.builder(
-                            padding: EdgeInsets.zero,
+                            padding: const EdgeInsets.only(bottom: 20.0),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             primary: false,
@@ -158,7 +158,9 @@ class _HomeState extends State<Home> {
                                   productModelList[index];
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(0.3),
+                                  // color: Colors.red.withOpacity(0.3),
+                                  color: const Color.fromARGB(255, 12, 25, 36)
+                                      .withOpacity(0.8),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 // color: Theme.of(context).primaryColor.withOpacity(0.3),
@@ -179,11 +181,19 @@ class _HomeState extends State<Home> {
                                     Text(
                                       singleProduct.name,
                                       style: const TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 232, 226, 226),
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Text("Price : ${singleProduct.price}"),
+                                    Text(
+                                      "Price : ${singleProduct.price}",
+                                      style: const TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 232, 226, 226),
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 10.0,
                                     ),
@@ -209,7 +219,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 50.0,
                   ),
                 ],
               ),

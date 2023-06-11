@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_with_admin_panel/constants/constants.dart';
 import 'package:ecommerce_with_admin_panel/firebase_helper/firebase_auth_helper/firabase_auth_helper.dart';
+import 'package:ecommerce_with_admin_panel/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:ecommerce_with_admin_panel/screens/home/home.dart';
 import 'package:ecommerce_with_admin_panel/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
                 height: 45.0,
               ),
               TextFormField(
-                 controller: email,
+                controller: email,
                 decoration: const InputDecoration(
                     hintText: "Email",
                     prefixIcon: Icon(
@@ -48,7 +49,7 @@ class _LoginState extends State<Login> {
                 height: 15.0,
               ),
               TextFormField(
-                 controller: password,
+                controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -77,14 +78,13 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   bool isVaildated = loginVaildation(email.text, password.text);
                   if (isVaildated) {
-                   
                     bool isLogined = await FirebaseAuthHelper.instance
                         .login(email.text, password.text, context);
                     if (isLogined) {
                       Routes.instance.pushAndRemoveUntil(
-                          widget: const Home(), context: context);
+                          widget: const CustomBottomBar(), context: context);
                     }
-                  } 
+                  }
                 },
                 // onPressed: () async {
                 //   bool isVaildated = loginValidation(email.text, password.text);

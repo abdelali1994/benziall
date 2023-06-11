@@ -1,10 +1,12 @@
 import 'package:ecommerce_with_admin_panel/constants/routes.dart';
 import 'package:ecommerce_with_admin_panel/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:ecommerce_with_admin_panel/models/category_model/category_model.dart';
+import 'package:ecommerce_with_admin_panel/provider/app_provider.dart';
 import 'package:ecommerce_with_admin_panel/screens/category_view/category_view.dart';
 import 'package:ecommerce_with_admin_panel/screens/product_details/product_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/product_model/product_model.dart';
 import '../../widgets/top_titles/top_titles.dart';
@@ -29,15 +31,23 @@ class _HomeState extends State<Home> {
 
   void getCategoryList() async {
     setState(() {
+      AppProvider appProvider =
+          Provider.of<AppProvider>(context, listen: false);
+      appProvider.getUserInfoFirebase();
       isLoading = true;
     });
     categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
     productModelList = await FirebaseFirestoreHelper.instance.getBestProducts();
 
     productModelList.shuffle();
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 
   @override
@@ -160,7 +170,7 @@ class _HomeState extends State<Home> {
                                 decoration: BoxDecoration(
                                   // color: Colors.red.withOpacity(0.3),
                                   color: const Color.fromARGB(255, 12, 25, 36)
-                                      .withOpacity(0.8),
+                                      .withOpacity(1),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 // color: Theme.of(context).primaryColor.withOpacity(0.3),

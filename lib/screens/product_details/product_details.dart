@@ -3,6 +3,7 @@ import 'package:ecommerce_with_admin_panel/constants/routes.dart';
 import 'package:ecommerce_with_admin_panel/models/product_model/product_model.dart';
 import 'package:ecommerce_with_admin_panel/provider/app_provider.dart';
 import 'package:ecommerce_with_admin_panel/screens/cart_screen/cart_screen.dart';
+import 'package:ecommerce_with_admin_panel/screens/check_out/check_out.dart';
 import 'package:ecommerce_with_admin_panel/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +128,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                   CupertinoButton(
                     onPressed: () {
                       setState(() {
-                        
                         qty++;
                       });
                     },
@@ -160,8 +160,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   SizedBox(
                     child: ElevatedButton(
                       onPressed: () {
-                        Routes.instance.push(
-                            widget: const FavouriteScreen(), context: context);
+                        Routes.instance
+                            .push(widget: const Checkout(), context: context);
                       },
                       child: const Text("Add To Cart"),
                     ),

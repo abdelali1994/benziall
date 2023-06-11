@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:ecommerce_with_admin_panel/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:ecommerce_with_admin_panel/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constants/constants.dart';
 import '../../../constants/routes.dart';
 import '../../../firebase_helper/firebase_auth_helper/firabase_auth_helper.dart';
 import '../../../widgets/Primary_button/primary_button.dart';
-import '../../home/home.dart';
+// import '../../home/home.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -21,7 +21,7 @@ class _LoginState extends State<SignUp> {
   bool isShowPassword = true;
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
- 
+
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
   @override
@@ -42,7 +42,7 @@ class _LoginState extends State<SignUp> {
                   height: 45.0,
                 ),
                 TextFormField(
-                   controller: name,
+                  controller: name,
                   decoration: const InputDecoration(
                       hintText: "Name",
                       prefixIcon: Icon(
@@ -66,7 +66,6 @@ class _LoginState extends State<SignUp> {
                 TextFormField(
                   controller: email,
                   decoration: const InputDecoration(
-                    
                       hintText: "Email",
                       prefixIcon: Icon(
                         Icons.email_outlined,
@@ -103,18 +102,20 @@ class _LoginState extends State<SignUp> {
                 PrimaryButton(
                   title: 'Create an Account ',
                   onPressed: () async {
-                   {
-                  bool isVaildated = signUpVaildation(email.text, password.text, name.text, phone.text);
-                  if (isVaildated) {
-                   
-                    bool isLogined = await FirebaseAuthHelper.instance
-                        .signUp(email.text, password.text, context);
-                    if (isLogined) {
-                      Routes.instance.pushAndRemoveUntil(
-                          widget: const Home(), context: context);
+                    {
+                      bool isVaildated = signUpVaildation(
+                          email.text, password.text, name.text, phone.text);
+                      if (isVaildated) {
+                        bool isLogined = await FirebaseAuthHelper.instance
+                            .signUp(
+                                name.text, email.text, password.text, context);
+                        if (isLogined) {
+                          Routes.instance.pushAndRemoveUntil(
+                              // widget: const Home(), context: context);
+                              widget: const CustomBottomBar(), context: context);
+                        }
+                      }
                     }
-                  } 
-                }
                   },
                 ),
                 const SizedBox(

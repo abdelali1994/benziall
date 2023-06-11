@@ -2,6 +2,7 @@ import 'package:ecommerce_with_admin_panel/screens/account_screen/account_screen
 import 'package:ecommerce_with_admin_panel/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_with_admin_panel/screens/favourite_screen/favourite_screen.dart';
 import 'package:ecommerce_with_admin_panel/screens/home/home.dart';
+import 'package:ecommerce_with_admin_panel/screens/order_screen/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -14,8 +15,8 @@ class CustomBottomBar extends StatefulWidget {
 }
 
 class _CustomBottomBarState extends State<CustomBottomBar> {
-  PersistentTabController _controller = PersistentTabController();
-  bool _hideNavBar = false;
+ final PersistentTabController _controller = PersistentTabController();
+ final  bool _hideNavBar = false;
 
   // @override
   // void initState() {
@@ -27,7 +28,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   List<Widget> _buildScreens() => [
         const Home(),
         const CartScreen(),
-        const FavouriteScreen(),
+        const OrderScreen(),
+        // const FavouriteScreen(),☻
         const AccountScreen(),
       ];
 
@@ -47,9 +49,12 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           inactiveColorPrimary: Colors.white,
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.favorite),
-          inactiveIcon: const Icon(Icons.favorite_outline),
-          title: "Favorite",
+          icon: const Icon(Icons.circle_rounded),
+          inactiveIcon: const Icon(Icons.circle_outlined),
+          title: "Orders",
+          // icon: const Icon(Icons.favorite),
+          // inactiveIcon: const Icon(Icons.favorite_outline),
+          // title: "Favorite",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: Colors.white,
         ),

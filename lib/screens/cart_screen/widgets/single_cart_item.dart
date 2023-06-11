@@ -193,6 +193,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                       setState(() {
                                         qty--;
                                       });
+                                      appProvider.updateQty(
+                                          widget.singleProduct, qty);
                                     }
                                   },
                                   padding: EdgeInsets.zero,
@@ -213,6 +215,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                     setState(() {
                                       qty++;
                                     });
+                                    appProvider.updateQty(
+                                        widget.singleProduct, qty);
                                   },
                                   padding: EdgeInsets.zero,
                                   child: const CircleAvatar(

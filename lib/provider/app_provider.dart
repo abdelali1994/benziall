@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 class AppProvider with ChangeNotifier {
   ///// Cart List ///////
   final List<ProductModel> _cartProductList = [];
+  final List<ProductModel> _buyProductList = [];
 
   UserModel? _userModel;
   UserModel get getUserInformation => _userModel!;
@@ -96,4 +97,29 @@ class AppProvider with ChangeNotifier {
     _cartProductList[index].qty = qty;
     notifyListeners();
   }
+
+
+    ///////// BUY Product  / / // / / // / / / // /
+
+  void addBuyProduct(ProductModel model) {
+    _buyProductList.add(model);
+    notifyListeners();
+  }
+
+  void addBuyProductCartList() {
+    _buyProductList.addAll(_cartProductList);
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _cartProductList.clear();
+    notifyListeners();
+  }
+
+  void clearBuyProduct() {
+    _buyProductList.clear();
+    notifyListeners();
+  }
+
+  List<ProductModel> get getBuyProductList => _buyProductList;
 }

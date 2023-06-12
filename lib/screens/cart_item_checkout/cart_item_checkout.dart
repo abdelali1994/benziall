@@ -8,15 +8,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Checkout extends StatefulWidget {
-  final ProductModel singleProduct;
-  const Checkout({super.key, required this.singleProduct});
+class CartItemCheckout extends StatefulWidget {
+  // final ProductModel singleProduct;
+  const CartItemCheckout({super.key});
 
   @override
-  State<Checkout> createState() => _CheckoutState();
+  State<CartItemCheckout> createState() => _CartItemCheckoutState();
 }
 
-class _CheckoutState extends State<Checkout> {
+class _CartItemCheckoutState extends State<CartItemCheckout> {
   int groupValue = 1;
   @override
   Widget build(BuildContext context) {
@@ -114,13 +114,12 @@ class _CheckoutState extends State<Checkout> {
             PrimaryButton(
               title: "Continues",
               onPressed: () async {
-                appProvider.clearBuyProduct();
-                appProvider.addBuyProduct(widget.singleProduct);
                 bool value = await FirebaseFirestoreHelper.instance
                     .uploadOrderedProductFirebase(
-                  appProvider.getBuyProductList,
-                  context,groupValue==1?"Cash On delivery":"Paid Online"
-                );
+                        appProvider.getBuyProductList,
+                        context,
+                        groupValue == 1 ? "Cash On delivery" : "Paid Online");
+                appProvider.clearBuyProduct();
                 if (value) {
                   Future.delayed(const Duration(seconds: 2), () {
                     Routes.instance.push(

@@ -160,8 +160,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                   SizedBox(
                     child: ElevatedButton(
                       onPressed: () {
+                          ProductModel productModel =
+                          widget.singleProduct.copyWith(qty: qty);
                         Routes.instance
-                            .push(widget: const Checkout(), context: context);
+                            .push(widget:  Checkout(singleProduct:productModel), context: context);
                       },
                       child: const Text("Add To Cart"),
                     ),

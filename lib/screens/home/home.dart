@@ -7,9 +7,13 @@ import 'package:ecommerce_with_admin_panel/screens/product_details/product_detai
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:math';
 import '../../models/product_model/product_model.dart';
 import '../../widgets/top_titles/top_titles.dart';
+
+
+
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -38,8 +42,9 @@ class _HomeState extends State<Home> {
     });
     categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
     productModelList = await FirebaseFirestoreHelper.instance.getBestProducts();
+   
 
-    productModelList.shuffle();
+    // productModelList.shuffle();
     if (mounted) {
       setState(() {
         isLoading = false;
